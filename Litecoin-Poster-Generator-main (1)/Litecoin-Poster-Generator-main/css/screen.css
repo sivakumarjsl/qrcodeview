@@ -1,0 +1,59 @@
+.print {
+  opacity: 0;
+}
+
+.example {
+  margin-top: 1em;
+}
+footer {
+  border-top: 1px solid #e0e0e0;
+  padding-top: 1em;
+  margin-top: 1em;
+}
+#dvContainer{
+  margin: 0;
+}
+#download{
+  display: none;
+}
+#download .logo {
+  text-align: center;
+}
+#download .logo img {
+  width: 3cm;
+}
+#download .Litecoin {
+  text-align: center;
+  font-size: 70px;
+  font-weight: bold;
+}
+#download .key {
+  text-align: center;
+  font-size: 50px;
+}
+#download .key img {
+  text-align:center;
+  height: 1.5cm;
+  margin-right: 0.3cm;
+  vertical-align: middle
+}
+#qrcode {
+  margin-top: 0.75cm;
+  width: 100%;
+  text-align: center;
+}
+#qrcodeimg{
+  text-align: center;
+}
+.scan {
+  font-size: 25px;
+  width: 100%;
+  text-align: center;
+}
+
+.address {
+  font-size: 15px;
+  width: 100%;
+  text-align: center;
+  margin-top: 0.5cm;
+}

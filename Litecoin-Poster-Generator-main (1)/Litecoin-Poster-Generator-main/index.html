@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Litecoin QR Payment Generator</title>
+      <meta property="og:image" content="img/example.png">
+      <link rel="stylesheet" type="text/css" href="css/screen.css" media="screen"/>
+      <link rel="stylesheet" type="text/css" href="css/print.css" media="print"/>
+      <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+      <!-- Latest compiled and minified JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
+      <script src="js/index.js"></script>
+   </head>
+   <body>
+      <div class="container hidden-print">
+         <div class="row">
+            <div class="col-sm-9">
+               <h1>Litecoin Payment Poster Generator</h1>
+               <p class="lead">Enter your Litecoin wallet address and click Preview &amp; Print. That's it.</p>
+               <p>Choose <code> Save As PDF</code> as printer destination. Don't forget to exclude <code>Headers and Footers</code> option before saving.</p>
+               <p>To do this simply click <code>More Settings</code> then unselect <code>Headers and Footers</code> from the options. You can use the PDF as poster, sticker, etc.</p>
+               <br/>
+               <form class="form-horizontal"  >
+                  <div class="form-group">
+                     <label class="col-xs-3 control-label" for="Litecoin">Litecoin</label>
+                     <div class="col-xs-9">
+                        <input type="text" class="form-control" id="Litecoin" value="Litecoin" />
+                        <span class="help-block">You can customize the text</span>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label class="col-xs-3 control-label" for="key">Accepted Here Text</label>
+                     <div class="col-xs-9">
+                        <input type="text" class="form-control" id="key" value="Accepted Here" />
+                        <span class="help-block">You can customize the text</span>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label class="col-xs-3 control-label" for="address">Wallet Address</label>
+                     <div class="col-xs-9">
+                        <input type="text" class="form-control" id="address" placeholder="Enter Wallet Address Here" />
+                        <span class="help-block">Enter Your Litecoin address such as LYCofhMWSu7B6wfGvUurXyFCRS3NtynZzF</span>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label class="col-xs-3 control-label" for="scan">Scan the Code</label>
+                     <div class="col-xs-9">
+                        <input type="text" class="form-control" id="scan" value="SCAN THE CODE" />
+                        <span class="help-block">You can change it to your own language</span>
+                     </div>
+                  </div>
+                  <div id="editor"></div>
+                  <div class="form-group">
+                     <div class="col-xs-offset-3 col-xs-9">
+                        <button type="button" class="btn btn-primary" onclick="generate();">Generate &amp; Download</button>
+                     </div>
+                  </div>
+               </form>
+            </div>
+            <div class="example thumbnail col-sm-3"><img src="img/example.png"></div>
+         </div>
+         <footer class="footer">
+            <p>Spread this page to boost Litecoin adoption all around the world.</p>
+            <p>Please donate LYCofhMWSu7B6wfGvUurXyFCRS3NtynZzF</p>
+         </footer>
+      </div>
+      <!-- /.container -->
+      <div class="print">
+         <div class="logo">
+            <img src="img/logo.svg" />
+         </div>
+         <div class="Litecoin"> 
+            <span class="text"></span>
+         </div>
+         <div class="key">
+            <span class="img">
+            <img src="img/qr.svg" /> 
+            </span>
+            <span class="text"></span>
+         </div>
+         <div id="qrcode"></div>
+         <div class="address"><span class="text"></span></div>
+         <div class="scan"><span class="text"></span></div>
+      </div>
+      <div class="container hidden-print" id="dvContainer">
+         <div id="download">
+            <div class="logo">
+               <img src="data:image/png;base64,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" />
+            </div>
+            <div class="Litecoin"> 
+               <span class="text"></span>
+            </div>
+            <div class="key">
+               <span class="img">
+                  <img src="data:image/png;base64,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" />
+               <span class="text"></span>
+            </div>
+            <div id="qrcodeimg"><img src="" width="500px" height="500px"></div>
+            <div class="address"><span class="text"></span></div>
+            <div class="scan"><span class="text"></span></div>
+         </div>
+      </div>
+   </body>
+</html>
